@@ -3,11 +3,12 @@ anum = 0
 class Node:
 
     def __init__(self):
-        global anum
         self.visited = False
         self.prev = None
         self.value = 0
-        self.num = anum
+        
+        global anum
+        self.num = anum + 1
         anum = self.num
 
     def __gt__(self, other):
@@ -15,3 +16,6 @@ class Node:
             return True
         else:
             return False
+
+    def __str__(self):
+        return self.num

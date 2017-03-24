@@ -11,7 +11,7 @@ class Queue:
 
     def push(self, who):
         self.end += 1
-        self.que[self.end] = who
+        self.que.append(who)
 
     def sort(self):
         for i in range(self.start, self.end + 1):
