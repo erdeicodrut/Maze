@@ -1,48 +1,58 @@
 from Queue import *
-from Node import * 
+from Node import *
 from Maze import *
 
 numOfNodes = 5
 
 Q = Queue()
 field = Maze(numOfNodes)
-nodes = [ Node() for x in range(numOfNodes + 1)]
+nodes = [Node() for x in range(numOfNodes + 1)]
 
-
-field.add(0,1,0)
-field.add(1,2,2)
-field.add(1,3,3)    
-field.add(2,4,4)
-field.add(3,5,1)
-field.add(4,5,1)
+field.add(0, 1, 0)
+field.add(1, 2, 2)
+field.add(1, 3, 3)
+field.add(2, 4, 4)
+field.add(3, 5, 1)
+field.add(4, 5, 1)
 
 startNode = 0
-Q.push(nodes[startNode])
+nodes[startNode].visited = True
+# Q.push(nodes[startNode])
 
 
+def walk_through(this_node_num):
+    pos = 0
 
+    # print([da for da in Q.que])
 
-def walkthrough(thisNodesNum):
-	for node, pos in field.adjacence[thisNodesNum], range(6):
-		
-		if (thisNodesNum == 5):
-			print("Node found w/ value {}".format(nodes[thisNodesNum].value))
+    for node in field.adjacence[this_node_num]:
 
-		if (node != None and nodes[pos].visited == False):
-			nodes[pos].visited = True
-			nodes[pos].prev = nodes[thisNodesNum]
-			nodes[pos].value = nodes[thisNodesNum].value + node
-			Q.push(nodes[pos])
-			Q.pop()
-			Q.sort()
-			walkthrough(Q.pop().num)
-			
+        if node != 100 and nodes[pos].visited == False:
+            nodes[pos].visited = True
+            nodes[pos].prev = nodes[this_node_num]
+            nodes[pos].value = nodes[this_node_num].value + node
+            Q.push(nodes[pos])
+            # print([da.num > Q.start for da in Q.que])
+            # print([da.num for da in Q.que])
+            Q.sort()
+            # print([da.num > Q.start for da in Q.que])
+            # print([da.num for da in Q.que])
 
+        pos += 1
 
-walkthrough(startNode)
+        if this_node_num == numOfNodes:
+            print("Node found w/ value {}".format(nodes[this_node_num].value))
+            break
 
+    curr = Q.pop().num
+    print(curr)
+    walk_through(curr)
 
+walk_through(startNode)
 
-	
+for i in field.adjacence:
+    for j in i:
+        print(j, end=" ")
+    print()
 
-
+print([x.num for x in Q.que])

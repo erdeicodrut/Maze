@@ -8,11 +8,11 @@ class Node:
         self.value = 0
         
         global anum
-        self.num = anum + 1
-        anum = self.num
+        self.num = anum
+        anum = self.num + 1
 
     def __gt__(self, other):
-        if self.value > other.value:
+        if self.value < other.value:
             return True
         else:
             return False
