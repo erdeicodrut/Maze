@@ -18,4 +18,4 @@ class Node:
             return False
 
     def __str__(self):
-        return self.num
+        return str(self.num)

@@ -16,12 +16,6 @@ class Queue:
     def __str__(self):
         print([q for q in self.que])
 
-    # def sort(self):
-    #     for i in range(self.start, self.end - 1):
-    #         for j in range(i, self.end):
-    #             if self.que[i] > self.que[j]:
-    #                 swap(self.que[i], self.que[j])
-
     def sort(self):
         for passnum in range(len(self.que) - 1, self.start, -1):
             for i in range(passnum):
