@@ -5,6 +5,6 @@ class Maze:
     def get(self, i, j):
         return self.adjacence[i][j]
 
-    def add (self, i, j, val):
+    def add (self, i, j, val = 1):
         self.adjacence[i][j] = val
         self.adjacence[j][i] = val

@@ -21,9 +21,11 @@ nodes[startNode].visited = True
 
 def showPath(endNode):
     i = endNode
+    print("path:", end=" ")
     while nodes[i].prev is not None:
-        print(nodes[i])
+        print(nodes[i], end=", ")
         i = nodes[i].prev.num
+    print(nodes[i])
 
 def search_djikstra(this_node_num):
     pos = 0
