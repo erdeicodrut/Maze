@@ -18,7 +18,14 @@ field.add(4, 5, 1)
 startNode = 0
 nodes[startNode].visited = True
 
-def walk_through(this_node_num):
+
+def showPath(endNode):
+    i = endNode
+    while nodes[i].prev is not None:
+        print(nodes[i])
+        i = nodes[i].prev.num
+
+def search_djikstra(this_node_num):
     pos = 0
 
     for node in field.adjacence[this_node_num]:
@@ -39,14 +46,9 @@ def walk_through(this_node_num):
     if curr is None:
         return
     curr = curr.num
-    print(curr)
-    walk_through(curr)
+    search_djikstra(curr)
 
 
-walk_through(startNode)
+search_djikstra(startNode)
 
-
-i = 5
-while nodes[i].prev is not None:
-    print(nodes[i])
-    i = nodes[i].prev.num
+showPath(numOfNodes)
