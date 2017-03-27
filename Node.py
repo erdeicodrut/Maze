@@ -1,12 +1,11 @@
 anum = 0
 
 class Node:
-
     def __init__(self):
         self.visited = False
         self.prev = None
         self.value = 0
-        
+
         global anum
         self.num = anum
         anum = self.num + 1
