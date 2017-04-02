@@ -25,7 +25,6 @@ class Queue:
                     self.que[i + 1] = temp
 
 
-
 def swap(a, b):
     aux = a
     a = b

@@ -22,6 +22,7 @@ def showPath(endNode):
         if nodes[i].x < len(maze) and nodes[i].y: maze[nodes[i].x][nodes[i].y] = 127
         i = nodes[i].prev.num
     print(nodes[i])
+    if nodes[i].x < len(maze) and nodes[i].y: maze[nodes[i].x][nodes[i].y] = 127
 
 
 def search_djikstra(this_node_num):
@@ -62,11 +63,10 @@ def get_node(x, y):
             return n
     return None
 
-maze =[]
-
-
+maze = []
 
 def decode(path):
+    global nodes
     # reading the image in grayscale
     global maze
     maze = cv2.imread(path, 0)
@@ -89,42 +89,51 @@ def decode(path):
                     # if the node wasn't found before add it into the set of nodes
                     if found_before(temp) is False:
                         nodes.append(temp)
+                        maze[i][j] = 200
 
     # creating the adjacence matrix
     field = Maze(len(nodes))
 
     for node in nodes:
-        i = 1
-        j = 1
+        i = 0
+        j = 0
         while True:
-
-            if maze[node.x + i][node.y] != 0:
-                if get_node(node.x + i, node.y):
-                    get_node(node.x +  i, node.y).prev = get_node(node.x, node.y)
-                    field.add(node.num, get_node(node.x + i, node.y).num, distance(node.x, node.y, get_node(node.x + i, node.y).x, get_node(node.x + i, node.y).y))
 
             i += 1
 
-            if  node.x + i >= len(maze) - 1:
+            if maze[node.x + i][node.y] == 255:
+                if get_node(node.x + i, node.y) and found_before(get_node(node.x, node.y)):
+
+                    get_node(node.x + i, node.y).prev = get_node(node.x, node.y)
+
+                    field.add(node.num,
+                              get_node(node.x + i, node.y).num,
+                              distance(node.x, node.y, get_node(node.x + i, node.y).x, get_node(node.x + i, node.y).y))
+
+
+            if node.x + i >= len(maze) - 1:
                 break
             if maze[node.x + i][node.y] == 0:
                 break
 
         while True:
 
+            j += 1
+
             if maze[node.x][node.y + j] != 0:
                 if get_node(node.x, node.y + j):
+
                     get_node(node.x, node.y + j).prev = get_node(node.x, node.y)
+
                     field.add(node.num, get_node(node.x, node.y + j).num, distance(node.x, node.y, get_node(node.x, node.y + j).x, get_node(node.x, node.y + j).y))
 
-            j += 1
 
             if node.y + j >= len(maze) - 1:
                 break
             if maze[node.x][node.y + j] == 0:
                 break
 
-
+    print([x for x in field.adjacence])
 
 
 decode("maze.png")
@@ -133,4 +142,4 @@ search_djikstra(0)
 
 showPath(nodes[len(nodes) - 1].num)
 
-cv2.imwrite("img.png", maze)
+cv2.imwrite("imgu.png", maze)
